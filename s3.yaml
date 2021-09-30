@@ -3,9 +3,9 @@ Resources:
     Type: 'AWS::S3::Bucket'
     Properties:
       AccessControl: PublicRead
-      BucketName: cake.halab.info
+      BucketName: '{{resolve:ssm:meal}}'
       WebsiteConfiguration:
-        IndexDocument: cake.html
+        IndexDocument: soup.html
         ErrorDocument: error.html
 
   BucketPolicy:
