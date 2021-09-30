@@ -14,10 +14,11 @@ Resources:
           TargetOriginId: 'arn:aws:s3:::soup.halab.info'
         Enabled: true
         Origins:
-          - DomainName: 'soup.halab.info.s3.eu-west-2.amazonaws.com'
+          - DomainName: 'soup.halab.info.s3-website.eu-west-2.amazonaws.com'
             Id: 'arn:aws:s3:::soup.halab.info'
-            S3OriginConfig:
-              OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}
+            CustomOriginConfig:
+              HTTPSPort: 443
+              OriginProtocolPolicy: https-only
             
           
   CloudFrontOriginAccessIdentity:
