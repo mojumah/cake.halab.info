@@ -1,27 +1,27 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: 2010-09-09
 Resources:
-  myDistribution:
-    Type: 'AWS::CloudFront::Distribution'
+  cloudfrontdistribution:
+    Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
-        Origins:
-        - DomainName: kebeh.halab.info
-          Id: myCustomOrigin
-          CustomOriginConfig:
-            HTTPPort: '80'
-            HTTPSPort: '443'
-            OriginProtocolPolicy: https-only
-        Enabled: 'true'
-        Comment: Somecomment
-        DefaultRootObject: kebeh.html
-
-        Aliases:
-        - kebeh.halab.info
- 
         DefaultCacheBehavior:
-          TargetOriginId: 'arn:aws:s3:::kebeh.halab.info'
           ViewerProtocolPolicy: https-only
-
-
-        ViewerCertificate:
-          CloudFrontDefaultCertificate: 'true'
+          DefaultTTL: 3600
+          ForwardedValues:
+            Cookies:
+              Forward: none
+            QueryString: true
+          TargetOriginId: 'arn:aws:s3:::soup.halab.info'
+        Enabled: true
+        Origins:
+          - DomainName: 'soup.halab.info.s3.eu-west-2.amazonaws.com'
+            Id: 'arn:aws:s3:::soup.halab.info'
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}
+            
+          
+  CloudFrontOriginAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !Sub ${AWS::StackName}
