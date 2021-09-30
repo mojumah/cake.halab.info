@@ -13,6 +13,7 @@ Resources:
             QueryString: true
           TargetOriginId: 'arn:aws:s3:::soup.halab.info'
         Enabled: true
+        HttpVersion: http2
         Aliases:
         - 'soup.halab.info'  
         ViewerCertificate:
